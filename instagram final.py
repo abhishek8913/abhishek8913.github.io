@@ -187,7 +187,7 @@ for Customer in UsersArray:
                 message_field = driver.find_element(By.XPATH, '//div[@aria-label="Message"]')
 
                 # Send message to the message field
-                message_field.send_keys("Hey my name is Abhi , I’m a short form content expert . I’m reaching out cause I’d love to work with you . Plenty of samples available on my profile! Looking forward to working with you .")
+                message_field.send_keys("Hey my name is ****, I’m a short form content expert . I’m reaching out cause I’d love to work with you . Plenty of samples available on my profile! Looking forward to working with you .")
 
 
                 try:
