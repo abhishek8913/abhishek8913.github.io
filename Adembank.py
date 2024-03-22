@@ -1,29 +1,21 @@
-from ast import While
-from codecs import charmap_build
-##from  import isalpha,isdigit
+import mysql.connector
 import datetime  as date
-from distutils.log import error
-from logging import exception, raiseExceptions
-from sqlite3 import IntegrityError
-SpecialSym =['$', '@', '#', '%']
-
-
-import mysql.connector 
-dates1=date.datetime.now()
 import random
 import string
 
-mydb=mysql.connector.connect(host="localhost",user="root",password="9020@Abhishek",database="bankdb")
+mydb= mysql.connector.connect(host="localhost",user="root",password="9020@Abhishek",database="bankdb")
 mycursor= mydb.cursor()
+
 Admin_Login="abhishek1"
 Admin_Password="9020@Abhishek"
 
 while True:
 	print("\n")
-	print("*  *  *  *  *  Welcome To ADEM Bank  *  *  *  *  *")
+	
+	print("*******************  Welcome To ADEM Bank *******************")
 	print("\n")
 	
-	print("Experience the next level banking.")
+	print("Your bank is always just a few clicks away.")
 	print("\n")
 	print("Press 1 for Admin Login")
 	print("Press 2 to User Login  ")
@@ -31,9 +23,9 @@ while True:
 	ch=int(input("Enter Your Choice : "))
 
 	if(ch>=3) :
-		print("  Try again... Enter valid choice ")
+		print("That was not a valid number.  Try again... ")
 	elif(ch==1):
-		print("Enter Admin Username and Password to Login to Adem Bank's Database")
+		print("Enter Admin Username and Password to Login to AdemBank's Database")
 		admin=input("Enter the Admin Username:	")
 		pswd=input("Enter the Admin Password:	")
 		if (admin==Admin_Login) and (pswd==Admin_Password):
@@ -46,12 +38,12 @@ while True:
 			print("Press 2 to Update an Account  ")
 			print("Press 3 to Delete an Account Permanently  ")
 			print("Press 4 to View Account details	")
-			#print("Press 5 for Loan Approval Section ")
+			print("Press 5 for Loan Approval Section ")
 			print("\n")
 
 			operation=int(input("Enter Your Choice : "))
-			if(operation>=5) :
-				print("  Try again... Enter valid choice")
+			if(operation>=6) :
+				print("That was not a valid number.  Try again... ")
 			elif(operation==1):
 				while True:
 			
@@ -82,11 +74,11 @@ while True:
 						break
 
 					g=int(input("Enter Your Annual Income : "))
-					q="insert into adembank values('{}','{}','{}','{}','{}','{}','{}','{}','{}')".format(n,u,z,a,s,d,f,k,g)
+					q="insert into AdemBank values('{}','{}','{}','{}','{}','{}','{}','{}','{}')".format(n,u,z,a,s,d,f,k,g)
 					mycursor.execute(q)
 					mydb.commit()
 
-					print("*  *  *  *  Account Has Been Created Successfully  *  *  *  *")
+					print("*****************Account Has Been Created Successfully********************")
 					print("\n")
 					print(" Name of Account Holder	:   ",n)
 					print(" Account Number		:   ",u)
@@ -109,45 +101,45 @@ while True:
 						break
 					if(ch2==1):
 						name=input ("Enter Your New Name : ")
-						ns="update adembank set name='{}' where Accountnumber='{}'".format(name,accnt)
+						ns="update AdemBank set name='{}' where Accountnumber='{}'".format(name,accnt)
 						mycursor.execute(ns)
 						mydb.commit()
 
-						print ("	* * * Name Updated Successfully * * *	") 
+						print ("	*****Name Updated Successfully*****	") 
 					elif(ch2==2):
 
 
 						mp=input("Enter Your New Accountnumber : ")
-						nm="update adembank set Accountnumber='{}' where password='{}'".format(mp,psd)
+						nm="update AdemBank set Accountnumber='{}' where password='{}'".format(mp,psd)
 						mycursor.execute(nm)
 						mydb.commit()
 
-						print ("	* * * Account Number Updated Successfully * * * ")
+						print ("	*****Account Number Updated Successfully*****	")
 
 
 					elif(ch2==3):
 
 						newpassword=input("Enter Your New Password : ")
-						us="update adembank set Password='{}' where Accountnumber='{}'".format(newpassword,accnt)
+						us="update AdemBank set Password='{}' where Accountnumber='{}'".format(newpassword,accnt)
 						mycursor.execute(us)
 						mydb.commit()
-						print ("	* * * Password Updated Successfully * * *	")
+						print ("	*****Password Updated Successfully*****	")
 
 					elif(ch2==4):
 						newphone=(input("Enter Your New Phone Number : "))
 						if(len(newphone)!=10) or newphone.isalpha():
-							print("		* * * Please Enter a valid 10 digit number * * * 	")
-						us="update adembank set Mobile_Number='{}' where  Accountnumber='{}'".format(newphone,accnt)
+							print("		*****Please Enter a valid 10 digit number*****		")
+						us="update AdemBank set Mobile_Number='{}' where  Accountnumber='{}'".format(newphone,accnt)
 						mycursor.execute(us)
 						mydb.commit()
-						print ("   * * * Mobile Number Updated Successfully * * *	")
+						print ("   *****Mobile Number Updated Successfully*****		")
 
 					elif(ch2==5):
 						newadd=input("Enter Your New Address : ")
-						ns1="update adembank set address='{}' where Accountnumber='{}'".format(newadd,accnt)
+						ns1="update AdemBank set address='{}' where Accountnumber='{}'".format(newadd,accnt)
 						mycursor.execute(ns1)
 						mydb.commit()
-						print("   * * * Address Updated Successfully * * *   ") 
+						print("   *****Address Updated Successfully *****   ") 
 					else:
 
 						print("Operation Aborted!!!")
@@ -162,7 +154,7 @@ while True:
 				input="S"
 				if (ok==input):
 
-					delet="delete from adembank where password='{}'".format(psd)
+					delet="delete from AdemBank where password='{}'".format(psd)
 					mycursor.execute(delet)
 					mydb.commit()
 				
@@ -171,7 +163,7 @@ while True:
 					mydb.commit()
 				
 					print("\n")
-					print(" * * * ACCOUNT HAS BEEN DELETED SUCCESSFULLY * * * ")
+					print("************* ACCOUNT HAS BEEN DELETED SUCCESSFULLY *******************")
 					exit()
 					
 				else:
@@ -179,42 +171,117 @@ while True:
 					print("Operation Aborted!!!")
 
 			elif(operation==4):
-				mycursor.execute("SELECT * from adembank")
+				mycursor.execute("SELECT * from AdemBank")
 				print("_________________________________________________________________________________________________________________________________________")
 				print("Name      AccountNumber   PassWord   Date of Birth \t      Address          Mob No         Aadhar No        Balance     Annual Income	")
 				print("_________________________________________________________________________________________________________________________________________")
 				for x in mycursor:
 					print(x)
 					print("_________________________________________________________________________________________________________________________________________")
-			
+			elif(operation == 5):
+				# Loan approval section
+				print("\n")
+				print("Loan Approval Section")
+				print("\n")
+
+				# Assuming an annual income threshold for eligibility
+				annual_income_min = 200000  # threshold
+				age_min = 23  # Minimum age for eligibility
+
+				# Fetch user data
+				u = input("Enter User AccountNumber: ")
+				p = input("Enter User Password: ")
+				
+
+				check_user_query = "SELECT * FROM AdemBank WHERE AccountNumber = %s AND Password = %s"
+				mycursor.execute(check_user_query, (u, p))
+				user_data = mycursor.fetchone()
+
+				if user_data:
+					dob="SELECT Date_of_birth FROM AdemBank where Accountnumber='{}'".format(u)
+					mycursor.execute(dob)
+					dob1=mycursor.fetchone()[0]
+					user_age = date.datetime.now().year - dob1.year
+
+					d1="select annual_income from AdemBank where Accountnumber='{}'".format(u)
+					mycursor.execute(d1)
+					ai=mycursor.fetchone()[0]
+
+					if ai >= annual_income_min and user_age >= age_min:
+						print("\n")
+						print("Loan Application Eligible")
+						loan_amount_maximum = ai * 0.12  # 12% of annual income
+						print(f"Eligible Loan Amount: Rs {loan_amount_maximum}")
+
+						santion_loan=int(input("Enter the loan amount needed: "))
+						if (santion_loan<=loan_amount_maximum):
+
+							print("Generating the Loan ID number now...")
+							Lo_id=''.join(random.choice(string.digits) for i in range(8))
+
+							p = santion_loan
+							r = int(input("Enter the rate of interest "))
+							n = int(input("Enter the number of years "))
+
+							t = (p*r*n*10)/100
+							print("The total interest to be paid is:",t)
+							print("\n")
+							m = (p+t)/(n*10)
+							print("The  monthly payment amount is:",m)
+
+							d1="select Name from AdemBank where Accountnumber='{}'".format(u)
+							mycursor.execute(d1)
+							nme=mycursor.fetchone()[0]
+
+							Lo_id1="insert into customerloan values('{}','{}','{}','{}','{}','{}','{}','{}')".format(Lo_id,u,p,n,r,m,t,nme)
+							mycursor.execute(Lo_id1)
+							mydb.commit()
+							
+						else:
+							print("\n")
+							print("Loan can be approved only for 12% of your annual income which is around Rs:",loan_amount_maximum )
+
+					else:
+						print("\n")
+						print("Annual Income is  ",ai,"and Age is  ",user_age, "against Minimum Annual income of 200000 and Minimum age of 23" )
+						print("Loan Application Not Eligible")
+				else:
+					print("\n")
+					print("User not found. Please check the AccountNumber and Password.")
+
+			else:
+				print("No more tasks")
+				exit()
+
+
 	if(ch==2):
 		u=input("Enter Your AccountNumber : ")
 		p=input("Enter Your Password : ")
-		a="select * from adembank where AccountNumber='{}' and Password='{}'".format(u,p)
+		a="select * from AdemBank where AccountNumber='{}' and Password='{}'".format(u,p)
 		mycursor.execute(a)
 		data=mycursor.fetchall()
 		if data:
 			while True:
-				d1="select Name from adembank where Accountnumber='{}'".format(u)
+				d1="select Name from AdemBank where Accountnumber='{}'".format(u)
 				mycursor.execute(d1)
 				nme=mycursor.fetchone()[0]
 				print("\n")
 				print("\n")
-				print("* * * * * Welcome",nme,"!!!"," * * * * *")
+				print("*************         Welcome",nme,"!!!","      *****************")
 				print("\n")
 				print("Press 1 to Withdraw Money")
 				print("Press 2 to Deposit Money")
 				print("Press 3 to View Last Five Transaction ")
 				print("Press 4 to View Your Profile ")
-				print("Press 5 to Log Out")
+				print("Press 5 to Check Eligibility for a loan")
 				print("Press 6 to Log Out")
 
 				ch1=int(input("Enter Your Choice : "))
 
-				if(ch1>=6):
+				if(ch1>=7):
 					print(" Invalid Input ")
 				if(ch1==1):
-					np="select Balance from adembank where AccountNumber='{}'".format(u)
+					np="select Balance from AdemBank where AccountNumber='{}'".format(u)
 					mycursor.execute(np)
 					bal=mycursor.fetchone()[0]
 				
@@ -226,7 +293,7 @@ while True:
 						if a1<=bal:
 							credited=0
 						
-							t6="update adembank set Balance=Balance - '{}' where AccountNumber='{}'".format(a1,u)
+							t6="update AdemBank set Balance=Balance - '{}' where AccountNumber='{}'".format(a1,u)
 							mycursor.execute(t6)
 							mydb.commit()
 
@@ -235,7 +302,7 @@ while True:
 							mycursor.execute(bp)
 							mydb.commit()
 
-							np9="select Balance from adembank where AccountNumber='{}'".format(u)
+							np9="select Balance from AdemBank where AccountNumber='{}'".format(u)
 							mycursor.execute(np9)
 							bal1=mycursor.fetchone()[0]
 
@@ -246,7 +313,7 @@ while True:
 
 						else:
 
-							print("   * * * * * Insufficient Balance Please Try Again ! * * * * *")
+							print("   ********* Insufficient Balance Please Try Again !  **********")
 							break
 				elif(ch1==2): 
 					debited=0
@@ -254,7 +321,7 @@ while True:
 					while True:
 						a11=(input("Enter the amount to deposit : "))
 
-						t6= "update adembank set Balance=Balance +'{}' where AccountNumber='{}'".format(a11,u)
+						t6= "update AdemBank set Balance=Balance +'{}' where AccountNumber='{}'".format(a11,u)
 						mycursor.execute(t6)
 						mydb.commit()
 
@@ -262,7 +329,7 @@ while True:
 						mycursor.execute(mn)
 						mydb.commit()
 
-						np9="select Balance from adembank where AccountNumber='{}'".format(u)
+						np9="select Balance from AdemBank where AccountNumber='{}'".format(u)
 						mycursor.execute(np9)
 						bal2=mycursor.fetchone()[0]
 
@@ -275,11 +342,11 @@ while True:
 				elif(ch1==3):
 					prt="Select Credited,Debited from Transactions where Accountnumber1='{}'".format(u)
 					mycursor.execute(prt)
-					print("* * * * * The Transaction Details are as Follows * * * * *")
+					print("*************** The Transaction Details are as Follows*********************")
 					print("\n")
 					for i in mycursor:
 						print("Credited , Debited  : " ,i)
-					d8="select Balance from adembank where AccountNumber='{}'".format(u)
+					d8="select Balance from AdemBank where AccountNumber='{}'".format(u)
 					mycursor.execute(d8)
 					bal=mycursor.fetchone()[0]
 					print("\n")
@@ -290,38 +357,38 @@ while True:
 				elif(ch1==4):
 					
 					print("_________________________________________________________________________________________________")
-					print("		* * * * * * *                 ACCOUNT DETAILS                * * * * * * *		")
-					print("_________________________________________________________________________________________________")
+					print("**********************                    ACCOUNT DETAILS                *************************")
+					print("__________________________________________________________________________________________________")
 
-					d1="select Name from adembank where Accountnumber='{}'".format(u)
+					d1="select Name from AdemBank where Accountnumber='{}'".format(u)
 					mycursor.execute(d1)
 					nme=mycursor.fetchone()[0]
 
-					d2="select AccountNumber from adembank where Accountnumber='{}'".format(u)
+					d2="select AccountNumber from AdemBank where Accountnumber='{}'".format(u)
 					mycursor.execute(d2)
 					act=mycursor.fetchone()[0]
 
-					d3="select Password from adembank where Accountnumber='{}'".format(u)
+					d3="select Password from AdemBank where Accountnumber='{}'".format(u)
 					mycursor.execute(d3)
 					pswd=mycursor.fetchone()[0]
 
-					d4="select Address from adembank where Accountnumber='{}'".format(u)
+					d4="select Address from AdemBank where Accountnumber='{}'".format(u)
 					mycursor.execute(d4)
 					dtfbth=mycursor.fetchone()[0]
 
-					d5="select Date_of_birth from adembank where Accountnumber='{}'".format(u)
+					d5="select Date_of_birth from AdemBank where Accountnumber='{}'".format(u)
 					mycursor.execute(d5)
 					addrs=mycursor.fetchone()[0]
 
-					d6="select Mobile_Number from adembank where Accountnumber='{}'".format(u)
+					d6="select Mobile_Number from AdemBank where Accountnumber='{}'".format(u)
 					mycursor.execute(d6)
 					mobln=mycursor.fetchone()[0]
 
-					d7="select Aadhar_no from adembank where Accountnumber='{}'".format(u)
+					d7="select Aadhar_no from AdemBank where Accountnumber='{}'".format(u)
 					mycursor.execute(d7)
 					adhr=mycursor.fetchone()[0]
 
-					d8="select Balance from adembank where AccountNumber='{}'".format(u)
+					d8="select Balance from AdemBank where AccountNumber='{}'".format(u)
 					mycursor.execute(d8)
 					bal=mycursor.fetchone()[0]
 					
@@ -334,13 +401,58 @@ while True:
 					print("Aadhar Number		: ",adhr)
 					print("Account Balance		: ",bal)
 					print("__________________________________________________________________________________________________")
-				elif(ch1==5):
-					print("\n")
-					print("* * * * * * *        Thanks For Banking with us       * * * * * * *")
-					exit()	
 					
+					
+
+				elif(ch1==5):
+
+					# Loan application
+					print("\n")
+					print("Loan Application")
+					print("\n")
+
+					u = input("Enter Your AccountNumber: ")
+					p = input("Enter Your Password: ")
+
+					check_user_query = "SELECT * FROM AdemBank WHERE AccountNumber = %s AND Password = %s"
+					mycursor.execute(check_user_query, (u, p))
+					user_data = mycursor.fetchone()
+
+					if user_data:
+						dob="SELECT Date_of_birth FROM AdemBank where Accountnumber='{}'".format(u)
+						mycursor.execute(dob)
+						dob1=mycursor.fetchone()[0]
+						
+						user_age = date.datetime.now().year - dob1.year
+
+						d1="select annual_income from AdemBank where Accountnumber='{}'".format(u)
+						mycursor.execute(d1)
+						ai=mycursor.fetchone()[0]
+
+						# Assuming an annual income threshold for eligibility
+						annual_income_min = 200000  # threshold
+						age_min = 23  # Minimum age for eligibility
+
+						if ai >= annual_income_min and user_age >= age_min:
+							print("\n")
+							print("Loan Application Eligible")
+							loan_amount = ai * 0.12  # 12% of annual income
+							print(f"Eligible Loan Amount: Rs {loan_amount}")
+							print("Contact Bank Officials for processing the loan")
+						# Implement loan application process here
+						else:
+							print("\n")
+							print("Annual Income is  ",ai,"and Age is  ",user_age, "against Minimum Annual income of 200000 and Minimum age of 23" )
+							print("Loan Application Not Eligible")
+					else:
+						print("\n")
+						print("User not found. Please check the AccountNumber and Password.")
+				elif(ch1==6):
+					print("\n")
+					print("*******        Thanks For Banking with us        *******")
+					exit()
 	else:
-				
+		print("\n")
 		print("        Login Again to continue further operations	")
 		exit()
-			
+		
